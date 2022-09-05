@@ -40,11 +40,11 @@ app.MapPost("/knife/{id}/buy/{price}", (int id, int price) => {
 
 //The second task is to implement adding of new knife
 //The endpoint should look like POST 'localhost:5000/knife/'
-app.MapPost("/knife/sell/{name}/{exterior}/{price}",(string name, string exterior, int price) =>
+app.MapPost("/knife/", (KnifeDto myknife) => 
 {
-    int idCount = knifes[knifes.Count-1].Id;
-    int id = idCount+1;
-    knifes.Add(new KnifeDto(id: id, name: name, exterior: exterior, price: price));
+    int idCount = knifes.Last().Id;
+    int id = idCount + 1;
+    knifes.Add(new KnifeDto(id: id, myknife.Name , exterior: myknife.Exterior, price: myknife.Price));
 });
 app.UseSwagger();
 app.UseSwaggerUI();
