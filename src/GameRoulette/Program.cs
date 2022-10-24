@@ -1,9 +1,14 @@
+using GameRoulette.Repositories;
+using GameRoulette.DTO_s;   
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
+
+builder.Services.AddSingleton<IKnifeRepository, KnifeRepository>();
 
 var app = builder.Build();
-
 //Generating knifes
 var random = new Random();
 var knifes = new List<KnifeDto>();
@@ -40,39 +45,16 @@ app.MapPost("/knife/{id}/buy/{price}", (int id, int price) =>
 });
 app.MapPost("/knife/", (AddKnifeRequestDto myknife) =>
 {
-    int id = knifes.Last().Id + 1;
+    int id = new List<KnifeDto>().Last().Id + 1;
     knifes.Add(new KnifeDto(id: id, myknife.Name, exterior: myknife.Exterior, price: myknife.Price));
 });
-
+app.MapPost("/knife/roulette", () =>
+{
+    //logic
+    var randomFirst = knifes.ElementAt(random.Next(knifes.Count - 1));
+    knifes.Remove(randomFirst);
+    return randomFirst;
+});
 app.UseSwagger();
 app.UseSwaggerUI();
 app.Run();
-
-public class KnifeDto
-{
-    public KnifeDto(int id, string name, string exterior, int price)
-    {
-        Id = id;
-        Name = name;
-        Exterior = exterior;
-        Price = price;
-    }
-
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Exterior { get; set; }
-    public int Price { get; set; }
-}
-public class AddKnifeRequestDto
-{
-    public AddKnifeRequestDto(string name, string exterior, int price)
-    {
-        Name = name;
-        Exterior = exterior;
-        Price = price;
-    }
-
-    public string Name { get; set; }
-    public string Exterior { get; set; }
-    public int Price { get; set; }
-}
