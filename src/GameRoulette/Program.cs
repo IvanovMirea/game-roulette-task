@@ -8,7 +8,9 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<IKnifeRepository, KnifeRepository>();
 
 var app = builder.Build();
+
 app.MapControllers();
 app.UseSwagger();
 app.UseSwaggerUI();
+
 app.Run();

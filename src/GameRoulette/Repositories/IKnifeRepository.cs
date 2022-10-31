@@ -1,18 +1,16 @@
 ﻿using GameRoulette.Dto;
 
-namespace GameRoulette.Repositories
+namespace GameRoulette.Repositories;
+
+public interface IKnifeRepository
 {
-    public interface IKnifeRepository
-    {
-        List<KnifeDto> GetAll();
-        KnifeDto Get(int id);
+    List<KnifeDto> GetAll();
 
-        void Delete(KnifeDto knife);
+    KnifeDto Get(int id);
 
-        KnifeDto Add(AddKnifeRequestDto myKnife);
+    void Delete(KnifeDto knife);
 
-        KnifeDto GetRandom();
+    KnifeDto Add(AddKnifeRequestDto myKnife);
 
-
-    }
+    KnifeDto GetRandom();
 }
