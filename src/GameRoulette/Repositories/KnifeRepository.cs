@@ -7,17 +7,25 @@ namespace GameRoulette.Repositories
         private readonly List<KnifeDto> _knifes = new();
         public KnifeDto Add(AddKnifeRequestDto myKnife)
         {
-            var id = _knifes.Last().Id + 1;
+            Random random = new Random();
+            var id = 0;
             var newKnife = new KnifeDto(id: id, myKnife.Name, exterior: myKnife.Exterior, price: myKnife.Price);
-            _knifes.Add(newKnife);
-            return newKnife;
+            if (_knifes.Count == 0)
+            {
+                _knifes.Add(newKnife);
+                return newKnife;
+            }
+            var newInf = _knifes.Last().Id + 1;
+            var newKnifes = new KnifeDto(id: newInf, myKnife.Name, exterior: myKnife.Exterior, price: myKnife.Price);
+            _knifes.Add(newKnifes);
+            return newKnifes;
+            
         }
 
         public void Delete(KnifeDto knife)
         {
-            var knifes = new List<KnifeDto>();
-            knifes.Remove(knife);
-            if (knifes.Contains(knife) == false)
+            _knifes.Remove(knife);
+            if (_knifes.Contains(knife) == false)
             {
                 return;
             }
@@ -26,7 +34,8 @@ namespace GameRoulette.Repositories
 
         public KnifeDto Get(int id)
         {
-            return _knifes.FirstOrDefault(x => x.Id == id);
+           return _knifes.FirstOrDefault(x => x.Id == id);
+            
         }
 
         public List<KnifeDto> GetAll()

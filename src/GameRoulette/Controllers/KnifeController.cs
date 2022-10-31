@@ -6,7 +6,7 @@ using GameRoulette.Repositories;
 
 namespace GameRoulette.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
 
     public class KnifeController : ControllerBase
@@ -28,17 +28,20 @@ namespace GameRoulette.Controllers
             return Ok(knife);
         }
 
-        [HttpPost]
+        [HttpPost("/api/knife/random")]
         public ActionResult<KnifeDto> Roulette()
         {
             KnifeDto knife = _knifeRep.GetRandom();
-            _knifeRep.Delete(knife);
+            _knifeRep.Delete(knife);    
             return Ok(knife);
 
         }
 
         [HttpGet]
-        public ActionResult<List<KnifeDto>> GetAll() => _knifeRep.GetAll();
+        public ActionResult<List<KnifeDto>> GetAll()
+        {
+            return Ok(_knifeRep.GetAll());
+        } 
 
         [HttpPost]
         public ActionResult<KnifeDto> Add(AddKnifeRequestDto request) => _knifeRep.Add(request);
@@ -46,8 +49,8 @@ namespace GameRoulette.Controllers
         [HttpPost("{id}/buy/{price}")]
         public ActionResult Buy(int id, int price)
         {
-            KnifeDto knife = _knifeRep.Get(id);
-            if (knife == null || knife.Price > price)
+            KnifeDto? knife = _knifeRep.Get(id);
+            if (knife == null)
             {
                 return NotFound();
             }
