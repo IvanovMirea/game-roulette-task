@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using GameRoulette.DTO_s;
+using GameRoulette.Dto;
 using GameRoulette.Repositories;
 
 

@@ -1,17 +1,15 @@
-﻿namespace GameRoulette.DTO_s
+﻿namespace GameRoulette.Dto;
+
+public class AddKnifeRequestDto
 {
-    public class AddKnifeRequestDto
+
+    public AddKnifeRequestDto(string name, string exterior, int price)
     {
-        Random random = new Random();
-        public AddKnifeRequestDto(string name, string exterior, int price)
-        {
-            Name = name;
-            Exterior = exterior;
-            Price = price;
-            Price = random.Next(1000, 10000);
-        }
-        public string Name { get; set; }
-        public string Exterior { get; set; }
-        public int Price { get; set; }
+        Name = name;
+        Exterior = exterior;
+        Price = price;
     }
+    public string Name { get; set; }
+    public string Exterior { get; set; }
+    public int Price { get; set; }
 }

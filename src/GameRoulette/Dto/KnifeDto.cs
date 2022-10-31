@@ -1,4 +1,4 @@
-﻿namespace GameRoulette.DTO_s
+﻿namespace GameRoulette.Dto
 {
     public class KnifeDto
     {

@@ -1,4 +1,4 @@
-﻿using GameRoulette.DTO_s;
+﻿using GameRoulette.Dto;
 
 namespace GameRoulette.Repositories
 {
